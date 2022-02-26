@@ -1,0 +1,47 @@
+name: CI-CD
+on:
+  push:
+    branches: production
+jobs:
+  build-js:
+    name: Build Js/Css
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: NPM Build
+        run: |
+          npm install
+          npm run prod
+          cat public/mix-manifest.json
+      - name: Upload build files
+        uses: actions/upload-artifact@v1
+        with:
+          name: assets
+          path: public
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build-js
+    if: github.ref == 'refs/heads/production'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download build assets
+        uses: actions/download-artifact@v1
+        with:
+          name: assets
+          path: public
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 8.0 # Change to your PHP-version
+          extensions: mbstring, bcmath
+      - name: Composer install
+        run: composer install
+      - name: Deploy to Production
+        env:
+          DOT_ENV: ${{ secrets.DOT_ENV }}
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          dep: deploy
