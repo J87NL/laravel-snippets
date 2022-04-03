@@ -108,7 +108,7 @@ on:
   push:
     branches: acceptation
 ```
-and change the last line into:  into `dep deploy stage=acceptation`
+and change the last line into: `dep deploy stage=acceptation`
 
 4. Create a new branch called `acceptation`, as soon as you merge into this branch Github Actions will deploy into the path specified in the new host-configration.
 
