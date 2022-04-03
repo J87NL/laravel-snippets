@@ -88,6 +88,27 @@ It's okay if you have a shared hosting, as long as you have SSH-access to it.
 - Highly insipred by https://atymic.dev/blog/github-actions-laravel-ci-cd/
 - With a lot of help of https://zellwk.com/blog/github-actions-deploy/
 
+### Deploying to different/multiple environments
+When you want to deploy to multiple environments, for example to a production- and an acceptation-environment, only a small extention is required:
+
+1. In your [deploy.php](./src/deploy.php) duplicate all host configuration lines, change the label of the new block to `acception` and change the DeployPath for example.
+2. In [/.github/workflows/deploy.yml](./src/.github/workflows/deploy.yml) change the last line from `dep: deploy` into `dep deploy stage=production`
+3. Duplicate [/.github/workflows/deploy.yml](./src/.github/workflows/deploy.yml), save it for example as `deploy-acceptation.yml` and change:
+```
+on:
+  push:
+    branches: production
+```
+into:
+
+```
+on:
+  push:
+    branches: acceptation
+```
+and change the last line into:  into `dep deploy stage=acceptation`
+4. Create a new branch called `acceptation`, as soon as you merge into this branch Github Actions will deploy into the path specified in the new host-configration.
+5. If you want to deploy to different servers, you have to create new Github Secrets (Settings > Secrets > Actions) like `SSH_PRIVATE_KEY_ACC` and `SSH_KNOWN_HOSTS_ACC` and configure these in your new `deploy-acceptation.yml`.
 
 ### Running tests in Github Actions
 The `deploy.yml`-file can be extended with tests which can run at the same time as as the `build-js`-step
