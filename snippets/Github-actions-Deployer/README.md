@@ -12,9 +12,9 @@ It's okay if you have a shared hosting, as long as you have SSH-access to it.
 
 2. Run the following command in your project:
 
-    `composer require deployer/deployer "^7.0.0-rc.4" --dev`
+    `composer require deployer/deployer --dev`
 
-   *You may use `composer require deployer/dist "^7.0" --dev` but I preferer deployer/deployer because it is easier to debug/work with.*
+   *You may use `composer require deployer/dist --dev` but I preferer deployer/deployer because it is easier to debug/work with.*
 
 3. In your Github repository go to Settings > Secrets > Actions
 
