@@ -18,7 +18,7 @@ It's okay if you have a shared hosting, as long as you have SSH-access to it.
 
 3. In your Github repository go to Settings > Secrets > Actions
 
-   Here we add 3 repository secrets:
+   Here we add 2 repository secrets:
    - DOT_ENV
      
      `With the contents of your production-.env`
