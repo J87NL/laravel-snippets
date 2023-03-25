@@ -46,30 +46,7 @@ It's okay if you have a shared hosting, as long as you have SSH-access to it.
 
      
      If you use Windows, you could use PuTTYgen to generate a keypair
-     but it may be easier to do this from your Linux-server.
-  - SSH_KNOWN_HOSTS
-     
-     This one can be a bit tricky and the solutions with `ssh-keyscan` I found on the internet don't seem to work for me.\
-     The solution I ended up with may be a tiny bit dirty but does the trick:\
-     We are looking for 1 or 2 values like `|1|and-a-lot-of-random-letters-and-numbers`\
-     \
-     On Linux when you check your ~/.ssh/known_hosts (`cat ~/.ssh/known_hosts`) you may see a lot of these records.\
-     I temporary change the filename using: \
-       `mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old` \
-     Then I SSH into my server (`ssh example.com`) which results in the question:
-    ```
-    The authenticity of host '[example.com]:22 ([some.ip]:22)' can't be established.
-    RSA key fingerprint is SHA256:****/****.
-    Are you sure you want to continue connecting (yes/no/[fingerprint])?
-    ```
-     After typing `yes` you can exit and check: \
-       `cat ~/.ssh/known_hosts` \
-     In my case the result is 2 lines starting with `|1|`, copy these lines into the `SSH_KNOWN_HOSTS`. \
-     You can remove the locally created known_host: \
-       `rm ~/.ssh/known_hosts` \
-     and reset the original known_hosts-file with: \
-       `mv ~/.ssh/known_hosts.old ~/.ssh/known_hosts`
-     
+     but it may be easier to do this from your Linux-server.    
 
 5. On the filesystem of your server inside the folder as set in the `setDeployPath`-setting  of `deploy.php`, create the following folders:
 
