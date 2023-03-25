@@ -23,7 +23,7 @@ jobs:
     needs: build-js
     if: github.ref == 'refs/heads/production'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Download build assets
         uses: actions/download-artifact@v1
         with:
