@@ -100,11 +100,11 @@ To make this work, add this above `deploy:`
    name: PHPUnit tests
    runs-on: ubuntu-latest
    steps:
-   - uses: actions/checkout@v2
+   - uses: actions/checkout@v3
      - name: Setup PHP
      uses: shivammathur/setup-php@master
      with:
-     php-version: 8.0
+     php-version: 8.2
      extensions: mbstring, bcmath
      - name: Composer install
      run: composer install
